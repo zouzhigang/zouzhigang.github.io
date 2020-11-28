@@ -1,0 +1,180 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Android跨平台开发实践 | 七号座先生</title><meta name="keywords" content="Android,安卓,Webview,webbview"><meta name="author" content="ZhiGang"><meta name="copyright" content="ZhiGang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="在Android平台上要实现native 和 js的通信主要是通过WebViewClient 和 WebChromeClient 两个类来实现。 WebViewClient的作用是帮助WebView处理各种通知、事件请求，其主要的方法有：onLoadResource、onPageStart、onPageFinished、onReceiveError、shouldOverrideUrlLoading">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android跨平台开发实践">
+<meta property="og:url" content="http://zhigang.online/2020/11/28/Android%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5/index.html">
+<meta property="og:site_name" content="七号座先生">
+<meta property="og:description" content="在Android平台上要实现native 和 js的通信主要是通过WebViewClient 和 WebChromeClient 两个类来实现。 WebViewClient的作用是帮助WebView处理各种通知、事件请求，其主要的方法有：onLoadResource、onPageStart、onPageFinished、onReceiveError、shouldOverrideUrlLoading">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tvax4.sinaimg.cn/large/75a48e07gy1gl44txca7uj20e80e8t8r.jpg">
+<meta property="article:published_time" content="2020-11-28T13:06:34.000Z">
+<meta property="article:modified_time" content="2020-11-28T13:18:45.843Z">
+<meta property="article:author" content="ZhiGang">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="安卓">
+<meta property="article:tag" content="Webview">
+<meta property="article:tag" content="webbview">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tvax4.sinaimg.cn/large/75a48e07gy1gl44txca7uj20e80e8t8r.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://zhigang.online/2020/11/28/Android%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2020-11-28 21:18:45'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/null" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://tvax4.sinaimg.cn/large/75a48e07gy1gl44txca7uj20e80e8t8r.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">七号座先生</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">Android跨平台开发实践</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-11-28T13:06:34.000Z" title="发表于 2020-11-28 21:06:34">2020-11-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-11-28T13:18:45.843Z" title="更新于 2020-11-28 21:18:45">2020-11-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Android/">Android</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>在Android平台上要实现native 和 js的通信主要是通过WebViewClient 和 WebChromeClient 两个类来实现。</p>
+<p>WebViewClient的作用是帮助WebView处理各种通知、事件请求，其主要的方法有：onLoadResource、onPageStart、onPageFinished、onReceiveError、shouldOverrideUrlLoading等；<br>WebChromeClient处理JS页面的事件响应，比如网页中的对话框、网页图标、网站标题、网页的加载进度等事件，对应的响应方法有onJsAlert、onJsConfirm、onJsConsole、onProgressChanged、onReceiveIcon、onReceiveTitle等。</p>
+<p>要实现Java 和 JS 通信就要：</p>
+<p>解决Java调JS；<br>JS调Java。<br>Java调用JS通过loadUrl和evaluateJavaScript两个方法。</p>
+<p>通过webview.loadUrl(“javascript:alert(‘hello world’)”)，可以在android平台将js代码注入到html页面，loadUrl方法可以直接调用js中定义的函数，也可以把android本地的assets目录下的js文件以字符串的形式注入到html页面中，但是这个注入时机一定要等到html页面加载完毕才能做，即在WebViewClient.onPageFinished的回调函数中调用，这样就相当于在html页面中直接引用了js资源文件。对于客户端来说，java调用js本质上是一个拼接js字符串的过程，但是调用loadUrl不能直接获取js函数的返回值，而要实现Java调用js函数后。</p>
+<p>获取js函数的返回值可以使用webview.evaluateJavaScript方法，但是该方法只有在android4.4及以上的版本才可以使用。其他用法和loadUrl一致。</p>
+<p>JS调用Java可以分为三种：对象映射、URL拦截、JS方法拦截。</p>
+<p>对象映射是通过webview.addJavascriptInterface(new JSObject(), “javaObject”)，这样可以js代码中可以直接调用javaObject对象，从而实现JS调用Java的功能，但是这个方法在android4.2以下会有安全漏洞，利用反射机制调用Android API getRuntime执行shell命令进行攻击，比如遍历sdcard、发送短信、安装木马APK等。<br>URL拦截是指在html页面通过iframe.src、window.open、documention.location或者href，这四种方法都可以在html页面中打开一个连接，从而会触发Java中的WebViewClient.shouldOverrideUrlLoading方法。例如在js中执行</p>
+<p><img src="https://tva1.sinaimg.cn/large/75a48e07gy1gl573gisrbj20ug04i401.jpg" alt="153585008923"></p>
+<p>在shouldOverrrideUrlLoading中可以根据约定的协议格式（Scheme）和协议名（Authority）获取从JS中传输过来的数据（Data）。<br>在JS中调用alert、console、prompt、confirm等方法就会触发WebChromeClient的onJsAlert、onConsoleMessage、onJsPrompt、onJsConfirm方法的回调。比如在js中可以调用</p>
+<p><img src="https://tvax3.sinaimg.cn/large/75a48e07gy1gl5741mih7j20t404sjsy.jpg" alt="181168094048"></p>
+<p>在onJsPrompt的message中可以获取prompt的内容，然后根据约定的协议格式可以获取数据。</p>
+<p>JSBridge框架</p>
+<p>为了解决JS和Native的通信问题，需要使用一个JSBridge框架（<a target="_blank" rel="noopener" href="https://github.com/lzyzsd/JsBridge%EF%BC%89%E7%94%A8%E6%9D%A5%E8%B4%9F%E8%B4%A3H5%E5%92%8CJava%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1%EF%BC%8C%E6%AD%A4%E6%97%B6%E9%9C%80%E8%A6%81%E8%A7%A3%E5%86%B3%E4%BB%A5%E4%B8%8B%E4%B8%A4%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%9A">https://github.com/lzyzsd/JsBridge）用来负责H5和Java之间的通信，此时需要解决以下两个问题：</a></p>
+<p>1）JS互相Java调用后如何回调，将responseData传递回去；</p>
+<p>2）JS调用Java有三种方法，如果选择哪一种方法比较合适。</p>
+<p>针对问题1，可以在java端和js端定义一个数据结构: Message={callbackId:xxx, handleName:xxx,responseData:xxx,responseId:xxx}。将回调函数保存在callbackId中，当JS或者Java处理完数据回调的时候再将保存在callbackId的回调函数存放在responseId，相应的回调的数据存放在responseData中，这样就能响应JS或者Java调用后的回调消息。<br>Js调用Java的方法虽然有三种，但是addJavaScriptInterface存在安全性问题一般不建议使用，JS中的alert、console方法都会在Html页面比较常用，confirm和prompt虽然不常用但是某些手机系统版本上会有对话框弹出，不通用，所以比较好的选择是url拦截，可以通过iframe.src触发shouldOverrideUrlLoading。</p>
+<p>JsBridge框架的使用主要分为：</p>
+<p>在H5页面加载完毕注入一个本地的js文件；<br>Java代码中注册BridgeHandler，用来处理JS发送过来的消息；<br>在本地注入的js文件中定义_handleMessageFromNative，用来接收java传递过来的消息；<br>因为客户端注入js是异步的，所以需要在js文件中注册Event监听器，成功后通知H5。</p>
+<p>Native调用JS，例如通过<br>webview.loadUrl(<br>“javascript:WebViewJavascriptBridge._handleMessageFromNative(‘{<br>&quot;callbackId&quot;:&quot;JAVA_CB_2_559&quot;,&quot;data&quot;:&quot;just data from java&quot;<br>}’)”);</p>
+<p>这样就可以调用JS的handleMessageFromNative方法，传递的数据格式是Message，callBackId响应js的回调，发送前会存储到HashMap中，js回调的时候根据JAVA_CB_2_559找到对应的的回调函数处理js的响应数据，具体流程如下：</p>
+<p><img src="https://tva4.sinaimg.cn/large/75a48e07gy1gl575ajiw2j21tw1zpqlg.jpg" alt="3"></p>
+<p>Js调用Java，通过sendMessageQueue将传递的信息转换成<br>Message= {data: {…}, callbackId: “cb_1_1234”}</p>
+<p>其中callbackId是js的回调函数。然后通过<br>iframe.src=’yy://return/_fetchQueue/[{“data”:”xxxx”,”callbackId”:”cb_1_4321”}]’，</p>
+<p>触发shouldOverrideUrlLoading方法，java处理完js传递过来的data后，将回调函数cb_1_4321设置到<br>Message={responseId: cb_1_4321, responseData:XXX}，</p>
+<p>这样在js中就能处理回调函数。具体的流程图如下：</p>
+<p><img src="https://tvax4.sinaimg.cn/large/75a48e07gy1gl575jx2dfj21vi28wkbw.jpg" alt="4"></p>
+<p>JsBridge框架提供两种Handler方法，registerHandler方法需要传入handler的名字，这样需要iOS、Android、H5三方约定这个名字，因为H5开发的的业务需求变化比较快，而且H5调用原生的方法也是随机的，所以每次都用registerHandler约定名字需要使用全局变量存放这些handler方法名不便于扩展，所以实际开发中使用defaultHanlder，H5调用原生方法的的时候约定一个cmd，即约定data={cmd:xxx,time:data:{…}}，只要在原生代码中对cmd命令有对应的功能，那么H5页面就可以随时调用原生的方法。</p>
+<p>JSBridge的改进建议，由于webview调用js方法的时候必须在主线程才能生效，所以偶然会出现java调用js失败。另外，Js调用Java偶尔也会失败，因为iframe机制不能保证每次都能触发shouldOverrideUrlLoading回调。</p>
+<p>目前JSBridge采用的是url scheme的方式，如果不考虑Android4.2以下，iOS7以下，可以采用的交互，比如直接使用addJavaScriptInterface在JS页面注入一个Native对象，将之前触发u步骤变为使用这个Native对象向Native发送消息。这种方法只是一个可行的方案，实际使用过程中目前的JSBridge方案基本上满足业务需求了。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZhiGang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://zhigang.online/2020/11/28/Android%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5/">http://zhigang.online/2020/11/28/Android%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://zhigang.online" target="_blank">七号座先生</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Android/">Android</a><a class="post-meta__tags" href="/tags/%E5%AE%89%E5%8D%93/">安卓</a><a class="post-meta__tags" href="/tags/Webview/">Webview</a><a class="post-meta__tags" href="/tags/webbview/">webbview</a></div><div class="post_share"><div class="social-share" data-image="https://tvax4.sinaimg.cn/large/75a48e07gy1gl44txca7uj20e80e8t8r.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2020/11/28/Android-WebView%E5%AE%B9%E5%99%A8%E5%88%9D%E6%AD%A5%E6%9E%84%E6%80%9D/"><img class="next-cover" src="https://tvax4.sinaimg.cn/large/75a48e07gy1gl44txca7uj20e80e8t8r.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Android WebView容器初步构思</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2020/11/28/Android-WebView容器初步构思/" title="Android WebView容器初步构思"><img class="cover" src="https://tvax4.sinaimg.cn/large/75a48e07gy1gl44txca7uj20e80e8t8r.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-28</div><div class="title">Android WebView容器初步构思</div></div></a></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/null" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">ZhiGang</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zouzhigang"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zouzhigang" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/as.zouzhigang@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2020/11/28/Android%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5/" title="Android跨平台开发实践"><img src="https://tvax4.sinaimg.cn/large/75a48e07gy1gl44txca7uj20e80e8t8r.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Android跨平台开发实践"/></a><div class="content"><a class="title" href="/2020/11/28/Android%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5/" title="Android跨平台开发实践">Android跨平台开发实践</a><time datetime="2020-11-28T13:06:34.000Z" title="发表于 2020-11-28 21:06:34">2020-11-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/11/28/Android-WebView%E5%AE%B9%E5%99%A8%E5%88%9D%E6%AD%A5%E6%9E%84%E6%80%9D/" title="Android WebView容器初步构思"><img src="https://tvax4.sinaimg.cn/large/75a48e07gy1gl44txca7uj20e80e8t8r.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Android WebView容器初步构思"/></a><div class="content"><a class="title" href="/2020/11/28/Android-WebView%E5%AE%B9%E5%99%A8%E5%88%9D%E6%AD%A5%E6%9E%84%E6%80%9D/" title="Android WebView容器初步构思">Android WebView容器初步构思</a><time datetime="2020-11-28T13:06:09.000Z" title="发表于 2020-11-28 21:06:09">2020-11-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/11/27/%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8GitHub%E5%92%8CHexo%E6%90%AD%E5%BB%BA%E5%B1%9E%E4%BA%8E%E4%BD%A0%E4%B8%AA%E4%BA%BA%E7%9A%84%E5%8D%9A%E5%AE%A2/" title="如何利用GitHub和Hexo搭建属于你个人的博客"><img src="https://tvax4.sinaimg.cn/large/75a48e07gy1gl44txca7uj20e80e8t8r.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何利用GitHub和Hexo搭建属于你个人的博客"/></a><div class="content"><a class="title" href="/2020/11/27/%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8GitHub%E5%92%8CHexo%E6%90%AD%E5%BB%BA%E5%B1%9E%E4%BA%8E%E4%BD%A0%E4%B8%AA%E4%BA%BA%E7%9A%84%E5%8D%9A%E5%AE%A2/" title="如何利用GitHub和Hexo搭建属于你个人的博客">如何利用GitHub和Hexo搭建属于你个人的博客</a><time datetime="2020-11-27T09:27:49.000Z" title="发表于 2020-11-27 17:27:49">2020-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/11/26/one/" title="你好哇，陌生人"><img src="https://tvax4.sinaimg.cn/large/75a48e07gy1gl450xfbccj21e011iwif.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="你好哇，陌生人"/></a><div class="content"><a class="title" href="/2020/11/26/one/" title="你好哇，陌生人">你好哇，陌生人</a><time datetime="2020-11-26T11:44:48.000Z" title="发表于 2020-11-26 19:44:48">2020-11-26</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 By ZhiGang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>
