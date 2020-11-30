@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://zhigang.online/2020/11/30/Kotlin%E7%9A%84%E4%BB%8B%E7%BB%8D/</loc>
+    
+    <lastmod>2020-11-30</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://zhigang.online/2020/11/28/Android%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5/</loc>
     
     <lastmod>2020-11-28</lastmod>
@@ -39,7 +46,7 @@
 
   <url>
     <loc>http://zhigang.online/</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2020-11-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -47,42 +54,49 @@
   
   <url>
     <loc>http://zhigang.online/tags/Hexo/</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2020-11-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://zhigang.online/tags/Github/</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2020-11-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://zhigang.online/tags/Android/</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2020-11-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://zhigang.online/tags/%E5%AE%89%E5%8D%93/</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2020-11-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://zhigang.online/tags/Webview/</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2020-11-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://zhigang.online/tags/webbview/</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2020-11-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zhigang.online/tags/Kotlin/</loc>
+    <lastmod>2020-11-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -91,14 +105,21 @@
   
   <url>
     <loc>http://zhigang.online/categories/Hexo/</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2020-11-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://zhigang.online/categories/Android/</loc>
-    <lastmod>2020-11-28</lastmod>
+    <lastmod>2020-11-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zhigang.online/categories/Kotlin/</loc>
+    <lastmod>2020-11-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
